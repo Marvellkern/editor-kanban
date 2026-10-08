@@ -4,6 +4,7 @@ import { useBoard } from "../store";
 import { CLIENT_COLORS, clientKey, resolveClientColor } from "../lib/clientColors";
 import { SketchInput } from "../sketch/primitives";
 import { CloseIcon } from "../sketch/icons";
+import { Private } from "./Private";
 
 const MAX_CHIPS = 12;
 
@@ -39,6 +40,7 @@ export function ClientField({ id, value, onChange }: Props) {
         maxLength={LIMITS.client}
         placeholder={hasSaved ? "Type or pick below" : "Who's it for?"}
         autoComplete="off"
+        className="private-input"
         aria-describedby={hasSaved ? `${id}-saved` : undefined}
         onChange={(e) => onChange(e.target.value)}
         onBlur={() => value.trim() && saveClient(value)}
@@ -68,7 +70,7 @@ export function ClientField({ id, value, onChange }: Props) {
                         aria-label={`Remove ${name} from saved clients`}
                       >
                         <span className="client-chip__dot" aria-hidden="true" />
-                        {name}
+                        <Private text={name} />
                         <CloseIcon size={14} />
                       </button>
                     ) : (
@@ -80,7 +82,7 @@ export function ClientField({ id, value, onChange }: Props) {
                         aria-label={`Set client to ${name}`}
                       >
                         <span className="client-chip__dot" aria-hidden="true" />
-                        {name}
+                        <Private text={name} />
                       </button>
                     )}
                   </li>

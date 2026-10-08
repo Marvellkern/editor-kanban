@@ -3,6 +3,7 @@ import { useBoard } from "../store";
 import { CLIENT_COLORS, CLIENT_COLOR_KEYS, autoClientColor, clientKey, type ClientColor } from "../lib/clientColors";
 import { SketchBox, hashSeed } from "../sketch/SketchBox";
 import { CheckIcon } from "../sketch/icons";
+import { Private } from "./Private";
 
 /** Swatches for the client's tape color. The choice is shared by every video for that client. */
 export function ClientColorPicker({ client }: { client: string }) {
@@ -35,7 +36,7 @@ export function ClientColorPicker({ client }: { client: string }) {
         ))}
       </div>
       <p className="form__hint">
-        Used on every video for “{client.trim()}”.{" "}
+        Used on every video for “<Private text={client.trim()} />”.{" "}
         {picked ? (
           <button type="button" className="link-btn" onClick={() => setClientColor(client, null)}>
             Back to automatic

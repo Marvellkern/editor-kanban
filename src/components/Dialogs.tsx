@@ -4,6 +4,7 @@ import { Modal } from "./Modal";
 import { SketchBox, hashSeed } from "../sketch/SketchBox";
 import { SketchButton } from "../sketch/primitives";
 import { CloseIcon } from "../sketch/icons";
+import { Private } from "./Private";
 
 export function ConfirmDialog() {
   const req = useUI((s) => s.confirm);
@@ -51,7 +52,10 @@ export function Toasts() {
       {toasts.map((t) => (
         <div key={t.id} className="toast">
           <SketchBox seed={hashSeed(t.message) + t.id} fill="var(--ink)" stroke="var(--ink)" shadow={3} shadowColor="var(--hl-yellow)" />
-          <span className="toast__msg">{t.message}</span>
+          <span className="toast__msg">
+            {t.message}
+            {t.detail && <> “<Private text={t.detail} />”</>}
+          </span>
           {t.onAction && (
             <button
               type="button"

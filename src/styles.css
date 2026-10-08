@@ -450,6 +450,18 @@ a { color: var(--ink); text-decoration-thickness: 1.5px; text-underline-offset: 
   font-size: 16px;
 }
 
+/* ---------- Blur mode -------------------------------------------------------
+   Card text is swapped for scrambled letters (see Private.tsx) and then blurred,
+   so nothing real is ever painted. Inputs can't be scrambled, so they're only
+   blurred, and readable again while focused for editing. */
+
+.private {
+  filter: blur(5px);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.is-blurred .private-input:not(:focus):not(:placeholder-shown) { filter: blur(5px); }
+
 /* ---------- Badges --------------------------------------------------------- */
 
 .badge { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
@@ -675,7 +687,10 @@ a { color: var(--ink); text-decoration-thickness: 1.5px; text-underline-offset: 
   .topbar { padding-top: 10px; gap: 8px; }
   .brand__name { font-size: 24px; }
   .hide-sm { display: none; }
-  .actions .sk-btn { padding: 4px 10px; min-width: 44px; }
+  .actions { gap: 4px; }
+  .actions .sk-btn { padding: 4px 8px; min-width: 44px; }
+  .brand { gap: 6px; min-width: 0; }
+  .brand .icon { width: 26px; height: 26px; }
   .filters { gap: 6px; min-width: 0; }
   .search { flex-basis: 100%; min-width: 0; }
   .filter-chips {

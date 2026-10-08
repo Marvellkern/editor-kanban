@@ -121,6 +121,22 @@ export const MinusIcon = (p: IconProps) => (
   </Icon>
 );
 
+export const EyeIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M2.8 12.2c2.4-3.9 5.6-6 9.3-6 3.6 0 6.8 2.1 9.2 5.9-2.4 3.8-5.6 5.9-9.3 5.9-3.6 0-6.8-2-9.2-5.8Z" />
+    <path d="M12 9.3c1.6-.1 2.8 1.2 2.7 2.8-.1 1.5-1.3 2.6-2.8 2.6-1.5-.1-2.6-1.3-2.6-2.8.1-1.5 1.2-2.6 2.7-2.6Z" />
+  </Icon>
+);
+
+/** Eye with a scribble through it: blur mode is on. */
+export const EyeOffIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M2.8 12.2c2.4-3.9 5.6-6 9.3-6 3.6 0 6.8 2.1 9.2 5.9-2.4 3.8-5.6 5.9-9.3 5.9-3.6 0-6.8-2-9.2-5.8Z" />
+    <path d="M12 9.3c1.6-.1 2.8 1.2 2.7 2.8-.1 1.5-1.3 2.6-2.8 2.6-1.5-.1-2.6-1.3-2.6-2.8.1-1.5 1.2-2.6 2.7-2.6Z" />
+    <path d="M4.2 4.3c5.2 5 10.3 10.2 15.6 15.3" strokeWidth={2.4} />
+  </Icon>
+);
+
 /** Small film-frame doodle used in the logo. */
 export const FilmIcon = (p: IconProps) => (
   <Icon {...p}>

@@ -9,6 +9,7 @@ import { DeadlineBadge, RevisionBadge, TypeTag } from "./Badges";
 import { useBoard, useUI } from "../store";
 import { CLIENT_COLORS, resolveClientColor } from "../lib/clientColors";
 import { recentlyDragged } from "./dragGuard";
+import { Private } from "./Private";
 
 interface FaceProps {
   card: Card;
@@ -35,8 +36,8 @@ export const CardFace = memo(function CardFace({ card, isDone, lifted }: FacePro
           style={{ "--tape": CLIENT_COLORS[color].css, "--tape-tilt": `${(seeded(card.seed, 2) * 6 - 3).toFixed(1)}deg` } as CSSProperties}
         />
       )}
-      <h3 className="card__title">{card.title}</h3>
-      {card.client && <p className="card__client"><span className="visually-hidden">Client: </span>{card.client}</p>}
+      <h3 className="card__title"><Private text={card.title} /></h3>
+      {card.client && <p className="card__client"><span className="visually-hidden">Client: </span><Private text={card.client} /></p>}
       <div className="card__meta">
         <TypeTag type={card.videoType} />
         {card.targetLength && (

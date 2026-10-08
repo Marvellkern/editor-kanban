@@ -46,7 +46,8 @@ function EditPanelInner({ id }: { id: string }) {
     close();
     if (removed) {
       showToast({
-        message: `Deleted “${removed.card.title}”`,
+        message: "Deleted",
+        detail: removed.card.title,
         actionLabel: "Undo",
         onAction: () => restoreCard(removed),
       });
@@ -85,6 +86,7 @@ function EditPanelInner({ id }: { id: string }) {
           <label htmlFor={f("title")} className="form__label">Title <span className="req">(required)</span></label>
           <SketchInput
             id={f("title")}
+            className="private-input"
             ref={titleRef}
             value={title}
             maxLength={LIMITS.title}

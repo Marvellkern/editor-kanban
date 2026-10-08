@@ -316,6 +316,8 @@ export type TypeFilter = "all" | VideoType;
 export interface Toast {
   id: number;
   message: string;
+  /** A video or client name, shown in quotes after the message and hidden in blur mode. */
+  detail?: string;
   actionLabel?: string;
   onAction?: () => void;
 }
@@ -331,6 +333,9 @@ export interface ConfirmRequest {
 }
 
 interface UIStore {
+  /** Blur mode: hides video titles and client names for screenshots. */
+  blur: boolean;
+  setBlur: (v: boolean) => void;
   search: string;
   typeFilter: TypeFilter;
   dueThisWeek: boolean;
@@ -348,10 +353,29 @@ interface UIStore {
   askConfirm: (c: ConfirmRequest | null) => void;
 }
 
+// A per-browser display preference, kept apart from the board so it never ends up in exports.
+const BLUR_KEY = "sketchkanban.blur";
+function readBlurPref(): boolean {
+  try {
+    return localStorage.getItem(BLUR_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
 let toastSeq = 0;
 const TOAST_MS = 5000;
 
 export const useUI = create<UIStore>((set, get) => ({
+  blur: readBlurPref(),
+  setBlur(blur) {
+    set({ blur });
+    try {
+      localStorage.setItem(BLUR_KEY, blur ? "1" : "0");
+    } catch {
+      /* storage blocked: the toggle still works for this visit */
+    }
+  },
   search: "",
   typeFilter: "all",
   dueThisWeek: false,

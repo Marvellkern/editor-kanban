@@ -4,7 +4,7 @@ import { useBoard, useUI, type TypeFilter } from "../store";
 import { SAMPLE_CARD_IDS } from "../lib/defaults";
 import { exportBoard, importBoardFile } from "../lib/backup";
 import { SketchButton, SketchInput } from "../sketch/primitives";
-import { CloseIcon, DownloadIcon, FilmIcon, SearchIcon, UploadIcon } from "../sketch/icons";
+import { CloseIcon, DownloadIcon, EyeIcon, EyeOffIcon, FilmIcon, SearchIcon, UploadIcon } from "../sketch/icons";
 import { SketchBox, hashSeed } from "../sketch/SketchBox";
 
 const TYPE_OPTIONS: { value: TypeFilter; label: string }[] = [
@@ -22,6 +22,9 @@ export function Header() {
   const dueThisWeek = useUI((s) => s.dueThisWeek);
   const setDueThisWeek = useUI((s) => s.setDueThisWeek);
   const fileRef = useRef<HTMLInputElement>(null);
+  const blur = useUI((s) => s.blur);
+  const setBlur = useUI((s) => s.setBlur);
+  const showToast = useUI((s) => s.showToast);
 
   return (
     <header className="topbar">
@@ -37,6 +40,7 @@ export function Header() {
           <SketchInput
             id="search"
             type="search"
+            className="private-input"
             value={search}
             placeholder="Search title or client"
             onChange={(e) => setSearch(e.target.value)}
@@ -65,6 +69,19 @@ export function Header() {
       </div>
 
       <div className="actions">
+        <SketchButton
+          size="sm"
+          seedKey="blur"
+          pressed={blur}
+          onClick={() => {
+            setBlur(!blur);
+            showToast({ message: blur ? "Names are visible again" : "Blur on: titles and clients are hidden. Screenshot away." });
+          }}
+          aria-label="Blur video titles and client names"
+          title="Hide titles and client names for screenshots"
+        >
+          {blur ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />} <span className="hide-sm">Blur</span>
+        </SketchButton>
         <SketchButton size="sm" seedKey="export" onClick={exportBoard} aria-label="Export board as a backup file">
           <DownloadIcon size={18} /> <span className="hide-sm">Export</span>
         </SketchButton>
